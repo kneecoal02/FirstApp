@@ -8,7 +8,7 @@ export default function App() {
 
   useEffect(() => {
     // ⚠️ Replace with your computer's local IP address
-    const newSocket: Socket = io("http://10.50.101.181:5000", {
+    const newSocket: Socket = io("http://127.0.0.1:5000:5000", {
       transports: ["websocket"], // Forces websocket (good for React Native)
     });
 
