@@ -8,25 +8,13 @@ export default function App() {
 
   useEffect(() => {
     // ⚠️ Replace with your computer's local IP address
-    const newSocket: Socket = io("http://127.0.0.1:5000:5000", {
+    const newSocket: Socket = io("http://127.0.0.1:5000", {
       transports: ["websocket"], // Forces websocket (good for React Native)
     });
-
-    newSocket.on("connect", () => {
-      console.log("✅ Connected to Socket.IO server");
-    });
-
+    
     newSocket.on("sensor_update", (data) => {
       console.log("📡 Received sensor data:", data);
       setSensorData(JSON.stringify(data.distance, null, 2));
-    });
-
-    newSocket.on("disconnect", () => {
-      console.log("❌ Disconnected from server");
-    });
-
-    newSocket.on("connect_error", (err) => {
-      console.log("🚨 Connection Error:", err.message);
     });
 
     setSocket(newSocket);
