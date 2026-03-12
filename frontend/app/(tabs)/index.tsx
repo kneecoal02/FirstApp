@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { io, Socket } from "socket.io-client";
+import { styles } from "./styles";
 
 export default function App() {
   const [sensorData, setSensorData] = useState<string>("Waiting for server...");
   const [socket, setSocket] = useState<Socket | null>(null);
 
   useEffect(() => {
-    // ⚠️ Replace with your computer's local IP address
     const newSocket: Socket = io("http://127.0.0.1:5000", {
-      transports: ["websocket"], // Forces websocket (good for React Native)
+      transports: ["websocket"],
     });
-    
+
     newSocket.on("sensor_update", (data) => {
       console.log("📡 Received sensor data:", data);
       setSensorData(JSON.stringify(data.distance, null, 2));
@@ -31,21 +31,3 @@ export default function App() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: "bold",
-    marginBottom: 20,
-  },
-  data: {
-    fontSize: 18,
-    textAlign: "center",
-  },
-});
